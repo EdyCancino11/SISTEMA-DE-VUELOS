@@ -1,0 +1,40 @@
+CREATE TABLE cliente (
+  id_cliente NUMBER(10) PRIMARY KEY,
+  sexo CHAR(1),
+  nombre VARCHAR2(50),
+  nacionalidad VARCHAR2(50),
+  firma BLOB,
+  fecha_nacimiento DATE
+);
+
+CREATE TABLE vuelo (
+  id_vuelo NUMBER(10) PRIMARY KEY,
+  id_cliente NUMBER(10),
+  salida VARCHAR2(50),
+  destino VARCHAR2(50),
+  asiento CHAR(3),
+  maletas NUMBER(2),
+  CONSTRAINT fk_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
+
+CREATE TABLE empresa (
+  id_empresa NUMBER(10) PRIMARY KEY,
+  id_vuelo NUMBER(10),
+  nombre VARCHAR2(50),
+  lugar VARCHAR2(50),
+  fecha DATE,
+  numero_reserva NUMBER(10),
+  departamento VARCHAR2(50),
+  ticket BLOB,
+  valido CHAR(1),
+  registro DATE,
+  CONSTRAINT fk_vuelo FOREIGN KEY (id_vuelo) REFERENCES vuelo(id_vuelo)
+);
+
+CREATE TABLE usuario (
+  id_usuario NUMBER(10) PRIMARY KEY,
+  id_cliente NUMBER(10),
+  username VARCHAR2(50),
+  password VARCHAR2(50),
+  CONSTRAINT fk_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
